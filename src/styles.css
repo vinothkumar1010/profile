@@ -1,0 +1,4 @@
+html, body { min-height: 100%; }
+body { margin: 0; background: #f8f0e8; }
+button, input, textarea, select { font: inherit; }
+::selection { color: #fffaf5; background: #bd5b24; }

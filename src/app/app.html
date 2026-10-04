@@ -1,0 +1,171 @@
+<header class="site-header">
+  <a class="brand" href="#top" aria-label="Vinoth Sangili, home">
+    <span class="brand-mark">VS</span>
+    <span class="brand-name">Vinoth Sangili</span>
+  </a>
+
+  <button class="menu-toggle" type="button" (click)="toggleMenu()" [attr.aria-expanded]="menuOpen()">
+    <span></span><span></span>
+    <span class="sr-only">Toggle navigation</span>
+  </button>
+
+  <nav class="header-nav" [class.open]="menuOpen()" aria-label="Mobile navigation">
+    <a href="#experience" (click)="closeMenu()">Experience</a>
+    <a [href]="githubUrl" target="_blank" rel="noopener noreferrer" (click)="closeMenu()">GitHub <span aria-hidden="true">↗</span></a>
+    <a [href]="linkedinUrl" target="_blank" rel="noopener noreferrer" (click)="closeMenu()">LinkedIn <span aria-hidden="true">↗</span></a>
+    <a href="#contact" (click)="closeMenu()">Contact</a>
+  </nav>
+</header>
+
+<nav
+  class="sticky-profile-nav"
+  [class.visible]="stickyNavVisible()"
+  [attr.aria-hidden]="stickyNavVisible() ? null : 'true'"
+  aria-label="Sticky navigation"
+>
+  <a href="#experience">Experience</a>
+  <a [href]="githubUrl" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+  <a [href]="linkedinUrl" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<main id="top">
+  <section class="hero" aria-labelledby="hero-title">
+    <img class="hero-art" src="autumn-hero.png" alt="A man looking toward an autumn tree at golden hour" />
+    <div class="hero-scrim"></div>
+
+    <div class="hero-copy">
+      <p class="eyebrow">Senior frontend engineer · Houston, Texas</p>
+      <h1 id="hero-title">
+        I build digital experiences that
+        <span class="accent-line">perform at scale.</span>
+      </h1>
+      <p class="hero-intro">
+        I’m Vinoth Kumar Sangili. For 16+ years, I’ve turned complex product needs into clear,
+        resilient interfaces—most recently for customer platforms serving 2.5 million people.
+      </p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#experience">View experience <span aria-hidden="true">↘</span></a>
+        <a class="text-link" [href]="githubUrl" target="_blank" rel="noopener noreferrer">View GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+
+    <div class="technology-orbit">
+      <span>Working across</span>
+      <strong aria-hidden="true">{{ activeTechnology() }}<i class="typing-cursor"></i></strong>
+      <span class="sr-only">Working across React, TypeScript, Angular, Next.js, D3, and AWS.</span>
+      <nav class="orbit-links" aria-label="Primary navigation">
+        <a href="#experience">Experience</a>
+        <a [href]="githubUrl" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+        <a [href]="linkedinUrl" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+
+    <div class="leaf-field" aria-hidden="true">
+      @for (leaf of [1, 2, 3, 4, 5, 6, 7, 8]; track leaf) {
+        <span class="leaf" [class]="'leaf leaf-' + leaf"></span>
+      }
+    </div>
+
+    <a class="scroll-cue" href="#impact" aria-label="Scroll to impact statistics">
+      <span>Scroll to explore</span><i></i>
+    </a>
+  </section>
+
+  <section class="impact" id="impact" aria-label="Career impact">
+    <div class="impact-intro">
+      <p class="section-kicker">Impact, not decoration</p>
+      <h2>Frontend engineering that connects customer needs with business outcomes.</h2>
+    </div>
+    <dl class="metrics">
+      <div><dt>16+</dt><dd>years building software</dd></div>
+      <div><dt>2.5M</dt><dd>customers supported</dd></div>
+      <div><dt>7</dt><dd>white-label brands</dd></div>
+      <div><dt>50+</dt><dd>production components</dd></div>
+    </dl>
+  </section>
+
+  <section class="work experience" id="experience" aria-labelledby="experience-title">
+    <div class="section-heading">
+      <p class="section-kicker">Professional experience</p>
+      <h2 id="experience-title">A career built across products, platforms, and teams.</h2>
+      <p>Six roles across energy, financial services, healthcare, cloud products, and education technology.</p>
+    </div>
+
+    <div class="experience-list">
+      @for (experience of experiences; track experience.company; let index = $index) {
+        <article class="experience-item">
+          <div class="case-number">{{ (index + 1).toString().padStart(2, '0') }}</div>
+          <div class="experience-main">
+            <p class="case-label">{{ experience.company }}</p>
+            <h3>{{ experience.role }}</h3>
+            <p class="experience-summary">{{ experience.summary }}</p>
+            @if (experience.highlights.length) {
+              <ul class="experience-highlights">
+                @for (highlight of experience.highlights; track highlight) {
+                  <li>{{ highlight }}</li>
+                }
+              </ul>
+            }
+            <ul class="case-tags" [attr.aria-label]="'Technologies used at ' + experience.company">
+              @for (technology of experience.technologies; track technology) {
+                <li>{{ technology }}</li>
+              }
+            </ul>
+          </div>
+          <div class="experience-meta">
+            <strong>{{ experience.period }}</strong>
+            <span>{{ experience.location }}</span>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="story" id="approach" aria-labelledby="story-title">
+    <div class="story-heading">
+      <p class="section-kicker">How I work</p>
+      <h2 id="story-title">Technical depth with a human point of view.</h2>
+    </div>
+    <div class="principles">
+      <article><span>01</span><h3>Make complexity legible</h3><p>Translate business rules and system constraints into interfaces customers can trust.</p></article>
+      <article><span>02</span><h3>Measure before optimizing</h3><p>Use real evidence, controlled rollouts, and production feedback to guide performance work.</p></article>
+      <article><span>03</span><h3>Build teams, not dependencies</h3><p>Share context, establish reusable patterns, and mentor engineers toward independent decisions.</p></article>
+    </div>
+  </section>
+
+  <section class="toolkit" aria-labelledby="toolkit-title">
+    <p class="section-kicker">Core toolkit</p>
+    <h2 id="toolkit-title">The technology changes. The engineering principles endure.</h2>
+    <div class="technology-list">
+      @for (technology of technologies; track technology.label) {
+        <span [class]="'technology technology-' + technology.tone">{{ technology.label }}</span>
+      }
+      <span class="technology technology-ink">Redux Toolkit</span>
+      <span class="technology technology-sage">Jest</span>
+      <span class="technology technology-amber">Storybook</span>
+      <span class="technology technology-ink">Accessibility</span>
+      <span class="technology technology-sage">CI/CD</span>
+    </div>
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <p class="section-kicker">Let’s build what’s next</p>
+    <h2 id="contact-title">Looking for a frontend lead who can connect architecture, delivery, and people?</h2>
+    <p>I’m actively exploring senior frontend, lead, and frontend architecture opportunities.</p>
+    <div class="contact-links">
+      <a class="button button-light" href="mailto:vinothkumaruidev@gmail.com">Email me <span aria-hidden="true">↗</span></a>
+      <a class="button button-outline-light" [href]="linkedinUrl" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+      <a class="button button-outline-light" [href]="githubUrl" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <a class="brand" href="#top"><span class="brand-mark">VS</span><span class="brand-name">Vinoth Sangili</span></a>
+  <div class="footer-links"><a [href]="githubUrl" target="_blank" rel="noopener noreferrer">GitHub</a><a [href]="linkedinUrl" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
+  <p>© 2026 Vinoth Kumar Sangili</p>
+</footer>
+
+<div class="cursor-glow" aria-hidden="true"></div>
